@@ -411,7 +411,7 @@ const ProjectSwiper = () => {
 /* Sections                                                          */
 /* ---------------------------------------------------------------- */
 
-const SectionHeading = ({ eyebrow, title }) => (
+const SectionHeading = ({ eyebrow, title, description }) => (
   <Reveal>
     <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-violet-500 dark:text-violet-300">
       {eyebrow}
@@ -419,6 +419,9 @@ const SectionHeading = ({ eyebrow, title }) => (
     <h2 className="mb-10 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
       {title}
     </h2>
+    {/* <p className="-mt-8 text-slate-500 dark:text-white/55">
+     {description}
+    </p> */}
   </Reveal>
 );
 
@@ -613,8 +616,15 @@ const ContactSection = ({ formData, handleChange, handleSubmit }) => (
         </div>
       </div>
 
-      <div className="mt-10 rounded-3xl border border-black/[0.06] bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.03] sm:p-8">
-        <div className="mb-8">
+      <div className="mt-8">
+        <SectionHeading
+          eyebrow="Contact Form"
+          title="Send a Message"
+          description=" Have a project in mind? Let's discuss your ideas."
+        />{" "}
+      </div>
+      <div className=" relative overflow-hidden rounded-2xl border border-black/[0.06] bg-gradient-to-br from-violet-50 via-white to-rose-50 p-8 dark:border-white/10 dark:from-violet-500/10 dark:via-transparent dark:to-rose-500/5 sm:p-12">
+        {/* <div className="mb-8">
           <p className="text-xs uppercase tracking-[0.25em] text-violet-500">
             Contact Form
           </p>
@@ -626,8 +636,7 @@ const ContactSection = ({ formData, handleChange, handleSubmit }) => (
           <p className="mt-3 text-slate-500 dark:text-white/55">
             Have a project in mind? Let's discuss your ideas.
           </p>
-        </div>
-
+        </div> */}
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-white/70">
@@ -640,7 +649,6 @@ const ContactSection = ({ formData, handleChange, handleSubmit }) => (
               value={formData.name}
               onChange={handleChange}
               placeholder="John Doe"
-              
               className="w-full rounded-2xl border border-black/[0.08] bg-white px-4 py-3 text-slate-800 outline-none transition-all duration-300 focus:border-violet-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-white/30"
             />
           </div>
@@ -655,7 +663,6 @@ const ContactSection = ({ formData, handleChange, handleSubmit }) => (
               name="email"
               value={formData.email}
               onChange={handleChange}
-              
               placeholder="john@example.com"
               className="w-full rounded-2xl border border-black/[0.08] bg-white px-4 py-3 text-slate-800 outline-none transition-all duration-300 focus:border-violet-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-white/30"
             />
@@ -672,7 +679,6 @@ const ContactSection = ({ formData, handleChange, handleSubmit }) => (
               value={formData.phone}
               onChange={handleChange}
               placeholder="9876543210"
-        
               className="w-full rounded-2xl border border-black/[0.08] bg-white px-4 py-3 text-slate-800 outline-none transition-all duration-300 focus:border-violet-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-white/30"
             />
           </div>
@@ -688,7 +694,6 @@ const ContactSection = ({ formData, handleChange, handleSubmit }) => (
               value={formData.subject}
               onChange={handleChange}
               placeholder="Project Inquiry"
-            
               className="w-full rounded-2xl border border-black/[0.08] bg-white px-4 py-3 text-slate-800 outline-none transition-all duration-300 focus:border-violet-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-white/30"
             />
           </div>
@@ -716,7 +721,7 @@ const ContactSection = ({ formData, handleChange, handleSubmit }) => (
               <Send size={18} />
             </span>
           </button>
-        </form>
+        </form>{" "}
       </div>
     </Reveal>
   </section>
@@ -812,7 +817,7 @@ const Sidebar = ({
 
         <div className="flex items-center justify-center gap-4 text-slate-400 dark:text-white/40">
           <a
-            href="https://www.linkedin.com/in/rajani-nasrin"
+            href="https://www.linkedin.com/in/rajani-nasrin-b53258208/"
             target="_blank"
             rel="noreferrer"
             className="transition-colors hover:text-violet-500 dark:hover:text-violet-300"
