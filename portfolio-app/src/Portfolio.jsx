@@ -17,7 +17,19 @@ import {
   Layers,
   GraduationCap,
   MessageSquare,
+  Send
 } from "lucide-react";
+import rajani from './assets/images/rajani.png'
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import emailjs from "@emailjs/browser";
+
+
+import "swiper/css";
+import "swiper/css/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 /* ---------------------------------------------------------------- */
 /* Data                                                              */
@@ -50,51 +62,84 @@ const skillGroups = [
 const projects = [
   {
     name: "Mekatron",
+    type: "Client",
     tag: "Live",
+    link: "https://www.mekatron.in/",
     desc: "Marketing site with a component-driven layout built for fast iteration and clean handoff from Figma.",
-    stack: ["React", "Tailwind", "Figma"],
+    stack: ["HTML5", "CSS3", "Tailwind", "JavaScript"],
   },
   {
     name: "Nikkan Dance Academy",
+    type: "Client",
     tag: "Live",
+    link: "https://nikkandance.org.uk/",
     desc: "Mobile-first academy site with responsive media galleries and accessible navigation.",
-    stack: ["HTML5", "CSS3", "JavaScript"],
+    stack: ["HTML5", "CSS3", "Tailwind", "JavaScript"],
   },
   {
     name: "Skills and Brilliance Towards Growth",
+    type: "Client",
     tag: "Live",
+    link: "https://stageforwork.com/sbmindtree/",
     desc: "Informational site focused on readable typography and a calm, structured page hierarchy.",
-    stack: ["Bootstrap", "JavaScript"],
+    stack: ["HTML5", "CSS3", "Tailwind", "JavaScript"],
   },
   {
     name: "MyJob Portal",
+    type: "Personal",
     tag: "In progress",
+    link: "https://amazing-crisp-4e7318.netlify.app/",
     desc: "Job-listing platform with filterable search and a candidate dashboard, built in React.",
-    stack: ["React", "Tailwind"],
+    stack: [
+      "React",
+      "HTML5",
+      "CSS3",
+      "Tailwind",
+      "JavaScript",
+      "REST API",
+      "JSON",
+    ],
+  },
+  {
+    name: "Apeiro BIM",
+    type: "Client",
+    tag: "Live",
+
+    link: "https://apeirobim.com/",
+    desc: "Professional BIM services website built with WordPress, featuring service showcases, project galleries and responsive business-focused design.",
+    stack: ["WordPress", "Elementor", "CSS"],
   },
   {
     name: "Animal Feed",
+    type: "Client",
     tag: "In progress",
+    link: "https://legendary-bienenstitch-b41820.netlify.app/",
     desc: "Product catalogue for a feed supplier with category browsing and an enquiry flow.",
-    stack: ["React", "Figma"],
+    stack: ["React", "HTML5", "CSS3", "Tailwind", "JavaScript", "PhotoShop"],
   },
   {
     name: "Market Veda",
+    type: "Client",
     tag: "In progress",
+    link: "https://ephemeral-trifle-b1d067.netlify.app/",
     desc: "Market-research style site with data-driven sections and clean content layout.",
-    stack: ["React", "Tailwind"],
+    stack: ["HTML5", "CSS3", "Figma", "Tailwind", "JavaScript"],
   },
   {
     name: "Love Travel",
+    type: "Client",
     tag: "In progress",
+    link: "https://fascinating-sable-3c4d48.netlify.app/",
     desc: "Travel booking concept with destination galleries and a mobile-first itinerary view.",
-    stack: ["React", "CSS3"],
+    stack: ["HTML5", "CSS3", "Tailwind", "JavaScript"],
   },
   {
     name: "Hagency",
+    type: "Personal",
     tag: "In progress",
+    link: "https://spiffy-syrniki-b10ca2.netlify.app/",
     desc: "Agency portfolio site with case-study cards and a bold, type-led hero section.",
-    stack: ["React", "Tailwind", "Figma"],
+    stack: ["HTML5", "CSS3", "Tailwind", "JavaScript"],
   },
 ];
 
@@ -135,6 +180,8 @@ const navItems = [
   { id: "education", label: "Education", icon: GraduationCap },
   { id: "contact", label: "Contact", icon: MessageSquare },
 ];
+
+
 
 /* ---------------------------------------------------------------- */
 /* Hooks & small components                                         */
@@ -183,11 +230,37 @@ const Reveal = ({ children, delay = 0, className = "" }) => {
 /* ---------------------------------------------------------------- */
 
 const ProjectCard = ({ project }) => (
-  <div className="group relative flex h-full w-[270px] flex-shrink-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.04] sm:w-[320px] sm:p-7">
+  <div className="group relative flex min-h-[320px] w-[270px] flex-shrink-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.04] sm:w-[300px] sm:p-6">
+    {/* <div className="mb-5 flex items-center gap-1.5">
+      <span className="h-2.5 w-2.5 rounded-full bg-rose-400/70" />
+      <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
+      <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
+      <span
+        className={`ml-auto rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${
+          project.tag === "Live"
+            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+            : "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+        }`}
+      >
+        {project.tag}
+      </span>
+    </div> */}
+
     <div className="mb-5 flex items-center gap-1.5">
       <span className="h-2.5 w-2.5 rounded-full bg-rose-400/70" />
       <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
       <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
+
+      <span
+        className={`ml-2 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${
+          project.type === "Client"
+            ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+            : "bg-violet-500/10 text-violet-600 dark:text-violet-400"
+        }`}
+      >
+        {project.type}
+      </span>
+
       <span
         className={`ml-auto rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${
           project.tag === "Live"
@@ -217,53 +290,67 @@ const ProjectCard = ({ project }) => (
       ))}
     </div>
 
-    <ExternalLink
+    {/* <ExternalLink
       size={18}
       className="absolute right-6 top-6 text-slate-300 transition-colors group-hover:text-violet-500 dark:text-white/20 dark:group-hover:text-violet-300"
-    />
+    /> */}
+    <a
+      href={project.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="absolute right-1 top-6 text-slate-300 transition-colors group-hover:text-violet-500 dark:text-white/20 dark:group-hover:text-violet-300"
+    >
+      <ExternalLink size={18} />
+    </a>
   </div>
 );
 
 const ProjectSwiper = () => {
-  const trackRef = useRef(null);
-
-  const scrollByCard = (dir) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const cardWidth = el.firstChild ? el.firstChild.offsetWidth + 24 : 320;
-    el.scrollBy({ left: dir * cardWidth, behavior: "smooth" });
-  };
-
   return (
     <div className="relative">
-      <div
-        ref={trackRef}
-        className="flex gap-6 overflow-x-auto pb-4 pl-1 pr-1 [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden"
+      <Swiper
+        modules={[Navigation, Autoplay]}
+        spaceBetween={24}
+       
+        loop={true}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        navigation={{
+          nextEl: ".custom-next",
+          prevEl: ".custom-prev",
+        }}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
+        }}
       >
         {projects.map((p) => (
-          <div key={p.name} className="snap-start">
-            <ProjectCard project={p} />
-          </div>
+          <SwiperSlide key={p.name}>
+            <ProjectCard project={p} style={{ width: "auto" }} />
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
 
       <div className="mt-6 flex items-center justify-between">
         <p className="text-xs uppercase tracking-[0.2em] text-slate-400 dark:text-white/35">
           Swipe to explore — {projects.length} projects
         </p>
+
         <div className="flex gap-2">
-          <button
-            onClick={() => scrollByCard(-1)}
-            aria-label="Previous project"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-violet-400 hover:text-violet-500 dark:border-white/15 dark:text-white/70 dark:hover:border-violet-300 dark:hover:text-violet-300"
-          >
+          <button className="custom-prev flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-violet-400 hover:text-violet-500 dark:border-white/15 dark:text-white/70">
             <ChevronLeft size={18} />
           </button>
-          <button
-            onClick={() => scrollByCard(1)}
-            aria-label="Next project"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-violet-400 hover:text-violet-500 dark:border-white/15 dark:text-white/70 dark:hover:border-violet-300 dark:hover:text-violet-300"
-          >
+
+          <button className="custom-next flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-violet-400 hover:text-violet-500 dark:border-white/15 dark:text-white/70">
             <ChevronRight size={18} />
           </button>
         </div>
@@ -271,6 +358,54 @@ const ProjectSwiper = () => {
     </div>
   );
 };
+
+// const ProjectSwiper = () => {
+//   const trackRef = useRef(null);
+
+//   const scrollByCard = (dir) => {
+//     const el = trackRef.current;
+//     if (!el) return;
+//     const cardWidth = el.firstChild ? el.firstChild.offsetWidth + 24 : 320;
+//     el.scrollBy({ left: dir * cardWidth, behavior: "smooth" });
+//   };
+
+//   return (
+//     <div className="relative">
+//       <div
+//         ref={trackRef}
+//         className="flex gap-6 overflow-x-auto pb-4 pl-1 pr-1 [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden"
+//       >
+//         {projects.map((p) => (
+//           <div key={p.name} className="snap-start">
+//             <ProjectCard project={p} />
+//           </div>
+//         ))}
+//       </div>
+
+//       <div className="mt-6 flex items-center justify-between">
+//         <p className="text-xs uppercase tracking-[0.2em] text-slate-400 dark:text-white/35">
+//           Swipe to explore — {projects.length} projects
+//         </p>
+//         <div className="flex gap-2">
+//           <button
+//             onClick={() => scrollByCard(-1)}
+//             aria-label="Previous project"
+//             className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-violet-400 hover:text-violet-500 dark:border-white/15 dark:text-white/70 dark:hover:border-violet-300 dark:hover:text-violet-300"
+//           >
+//             <ChevronLeft size={18} />
+//           </button>
+//           <button
+//             onClick={() => scrollByCard(1)}
+//             aria-label="Next project"
+//             className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-violet-400 hover:text-violet-500 dark:border-white/15 dark:text-white/70 dark:hover:border-violet-300 dark:hover:text-violet-300"
+//           >
+//             <ChevronRight size={18} />
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 /* ---------------------------------------------------------------- */
 /* Sections                                                          */
@@ -288,7 +423,7 @@ const SectionHeading = ({ eyebrow, title }) => (
 );
 
 const AboutSection = () => (
-  <section id="about" className="scroll-mt-24 px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
+  <section id="about" className="scroll-mt-24 px-6 py-10 md:py-16 sm:px-10 sm:py-24 lg:px-16">
     <SectionHeading eyebrow="Hello" title="About me" />
     <Reveal delay={100}>
       <p className="max-w-2xl text-base leading-relaxed text-slate-600 dark:text-white/65 sm:text-lg">
@@ -325,7 +460,10 @@ const AboutSection = () => (
 );
 
 const WorkSection = () => (
-  <section id="work" className="scroll-mt-24 px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
+  <section
+    id="work"
+    className="scroll-mt-24 px-6  py-10 md:py-16  sm:px-10 sm:py-24 lg:px-16"
+  >
     <SectionHeading eyebrow="Portfolio" title="Selected work" />
     <Reveal delay={100}>
       <ProjectSwiper />
@@ -394,9 +532,15 @@ const EducationSection = () => (
   </section>
 );
 
-const ContactSection = () => (
-  <section id="contact" className="scroll-mt-24 px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
-    <SectionHeading eyebrow="Get in touch" title="Let's build your next interface" />
+const ContactSection = ({ formData, handleChange, handleSubmit }) => (
+  <section
+    id="contact"
+    className="scroll-mt-24 px-6 py-16 sm:px-10 sm:py-24 lg:px-16"
+  >
+    <SectionHeading
+      eyebrow="Get in touch"
+      title="Let's build your next interface"
+    />
     <Reveal delay={100}>
       <div className="relative overflow-hidden rounded-2xl border border-black/[0.06] bg-gradient-to-br from-violet-50 via-white to-rose-50 p-8 dark:border-white/10 dark:from-violet-500/10 dark:via-transparent dark:to-rose-500/5 sm:p-12">
         <div className="grid gap-6 sm:grid-cols-2">
@@ -408,8 +552,12 @@ const ContactSection = () => (
               <Mail size={18} />
             </span>
             <div>
-              <p className="text-xs uppercase tracking-widest text-slate-400 dark:text-white/40">Email</p>
-              <p className="text-sm font-semibold text-slate-800 dark:text-white">rajaninasrin16@gmail.com</p>
+              <p className="text-xs uppercase tracking-widest text-slate-400 dark:text-white/40">
+                Email
+              </p>
+              <p className="text-sm font-semibold text-slate-800 dark:text-white">
+                rajaninasrin16@gmail.com
+              </p>
             </div>
           </a>
 
@@ -421,13 +569,17 @@ const ContactSection = () => (
               <Phone size={18} />
             </span>
             <div>
-              <p className="text-xs uppercase tracking-widest text-slate-400 dark:text-white/40">Phone</p>
-              <p className="text-sm font-semibold text-slate-800 dark:text-white">8240661819</p>
+              <p className="text-xs uppercase tracking-widest text-slate-400 dark:text-white/40">
+                Phone
+              </p>
+              <p className="text-sm font-semibold text-slate-800 dark:text-white">
+                +91 8240661819
+              </p>
             </div>
           </a>
 
           <a
-            href="https://www.linkedin.com/in/rajani-nasrin"
+            href="https://www.linkedin.com/in/rajani-nasrin-b53258208/"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-4 rounded-xl border border-black/[0.06] bg-white p-4 transition-colors hover:border-violet-300 dark:border-white/10 dark:bg-white/5 dark:hover:border-violet-400/40"
@@ -436,8 +588,12 @@ const ContactSection = () => (
               <Linkedin size={18} />
             </span>
             <div>
-              <p className="text-xs uppercase tracking-widest text-slate-400 dark:text-white/40">LinkedIn</p>
-              <p className="text-sm font-semibold text-slate-800 dark:text-white">Rajani Nasrin</p>
+              <p className="text-xs uppercase tracking-widest text-slate-400 dark:text-white/40">
+                LinkedIn
+              </p>
+              <p className="text-sm font-semibold text-slate-800 dark:text-white">
+                Rajani Nasrin
+              </p>
             </div>
           </a>
 
@@ -446,11 +602,121 @@ const ContactSection = () => (
               <MapPin size={18} />
             </span>
             <div>
-              <p className="text-xs uppercase tracking-widest text-slate-400 dark:text-white/40">Location</p>
-              <p className="text-sm font-semibold text-slate-800 dark:text-white">Kolkata, West Bengal</p>
+              <p className="text-xs uppercase tracking-widest text-slate-400 dark:text-white/40">
+                Location
+              </p>
+              <p className="text-sm font-semibold text-slate-800 dark:text-white">
+                Kolkata, West Bengal
+              </p>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mt-10 rounded-3xl border border-black/[0.06] bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.03] sm:p-8">
+        <div className="mb-8">
+          <p className="text-xs uppercase tracking-[0.25em] text-violet-500">
+            Contact Form
+          </p>
+
+          <h3 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white">
+            Send a Message
+          </h3>
+
+          <p className="mt-3 text-slate-500 dark:text-white/55">
+            Have a project in mind? Let's discuss your ideas.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-white/70">
+              Full Name <span className="text-red-500">*</span>
+            </label>
+
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="John Doe"
+              
+              className="w-full rounded-2xl border border-black/[0.08] bg-white px-4 py-3 text-slate-800 outline-none transition-all duration-300 focus:border-violet-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-white/30"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-white/70">
+              Email Address<span className="text-red-500">*</span>
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              
+              placeholder="john@example.com"
+              className="w-full rounded-2xl border border-black/[0.08] bg-white px-4 py-3 text-slate-800 outline-none transition-all duration-300 focus:border-violet-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-white/30"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-white/70">
+              Contact Number
+            </label>
+
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="9876543210"
+        
+              className="w-full rounded-2xl border border-black/[0.08] bg-white px-4 py-3 text-slate-800 outline-none transition-all duration-300 focus:border-violet-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-white/30"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-white/70">
+              Subject<span className="text-red-500">*</span>
+            </label>
+
+            <input
+              type="text"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              placeholder="Project Inquiry"
+            
+              className="w-full rounded-2xl border border-black/[0.08] bg-white px-4 py-3 text-slate-800 outline-none transition-all duration-300 focus:border-violet-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-white/30"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-white/70">
+              Message<span className="text-red-500">*</span>
+            </label>
+
+            <textarea
+              rows="5"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Tell me about your project..."
+              className="w-full resize-none rounded-2xl border border-black/[0.08] bg-white px-4 py-3 text-slate-800 outline-none transition-all duration-300 focus:border-violet-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-white/30"
+            />
+          </div>
+          <button
+            type="submit"
+            className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-500 to-rose-400 px-6 py-3 font-semibold text-white shadow-lg shadow-violet-500/20 transition-all duration-300 hover:scale-105"
+          >
+            Send Message
+            <span className=" text-white transition-transform duration-300 group-hover:translate-x-1">
+              <Send size={18} />
+            </span>
+          </button>
+        </form>
       </div>
     </Reveal>
   </section>
@@ -483,8 +749,15 @@ const Sidebar = ({
       </button>
 
       <div className="flex flex-col items-center text-center">
-        <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-rose-400 text-3xl font-extrabold text-white shadow-lg shadow-violet-500/20">
+        {/* <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-rose-400 text-3xl font-extrabold text-white shadow-lg shadow-violet-500/20">
           RN
+        </div> */}
+        <div className="flex h-[140px] w-[140px] items-center justify-center rounded-full shadow-lg shadow-violet-500/20">
+          <img
+            src={rajani}
+            alt=""
+            className=" h-[140px] w-[140px] rounded-full   object-cover object-top"
+          />
         </div>
         <h1 className="mt-5 text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
           Rajani Nasrin
@@ -580,6 +853,67 @@ export default function Portfolio() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("about");
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+if (
+  !formData.name ||
+  !formData.email ||
+  !formData.subject ||
+  !formData.message
+) {
+  toast.error("Please fill all required fields", {
+    position: "top-right",
+  });
+  return;
+}
+    try {
+      await emailjs.send(
+        "service_fpo259w",
+        "template_vrr2742",
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        "W2WaBKe52T_CwXW6S",
+      );
+
+     toast.success("Message sent successfully 🚀", {
+       position: "top-right",
+     });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to send message ❌", {
+        position: "top-right",
+      });
+    }
+  };
+
   const scrollTo = (id) => {
     setMobileOpen(false);
     const el = document.getElementById(id);
@@ -602,6 +936,7 @@ export default function Portfolio() {
     sections.forEach((s) => s && obs.observe(s));
     return () => obs.disconnect();
   }, []);
+  
 
   return (
     <div className={dark ? "dark" : ""}>
@@ -625,8 +960,15 @@ export default function Portfolio() {
 
         {/* mobile top bar */}
         <div className="sticky top-0 z-20 flex items-center justify-between border-b border-black/[0.06] bg-white/80 px-5 py-4 backdrop-blur-md dark:border-white/10 dark:bg-[#0B0716]/80 lg:hidden">
-          <span className="text-base font-extrabold tracking-tight text-slate-900 dark:text-white">
-            Rajani<span className="text-violet-500">.</span>Nasrin
+          <span className="flex items-center  text-base font-extrabold tracking-tight text-slate-900 dark:text-white">
+            <img
+              src={rajani}
+              alt=""
+              className="h-14 w-14 rounded-full object-cover object-top mr-2"
+            />
+            <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-xl font-black text-transparent">
+              Rajani<span className="text-white">.</span>Nasrin
+            </span>
           </span>
           <button onClick={() => setMobileOpen(true)} aria-label="Open menu">
             <Menu size={22} className="text-slate-700 dark:text-white" />
@@ -645,7 +987,7 @@ export default function Portfolio() {
         {/* main content */}
         <main className="lg:pl-72">
           {/* hero */}
-          <section className="flex min-h-[70vh] flex-col justify-center px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
+          <section className="flex min-h-[70vh] flex-col justify-center px-6 py-10 md:py-16 sm:px-10 sm:py-24 lg:px-16">
             <div className="hero-anim max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-1.5 text-xs font-semibold text-violet-600 dark:border-violet-400/20 dark:bg-violet-400/10 dark:text-violet-300">
                 Available for freelance &amp; full-time roles
@@ -660,9 +1002,10 @@ export default function Portfolio() {
                 &amp; care.
               </h1>
               <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-500 dark:text-white/60 sm:text-lg">
-                I turn Figma designs into responsive, accessible, production-ready
-                React interfaces — focused on clean components, performance, and the
-                small details that make a layout feel right on any screen.
+                I turn Figma designs into responsive, accessible,
+                production-ready React interfaces — focused on clean components,
+                performance, and the small details that make a layout feel right
+                on any screen.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
@@ -690,7 +1033,12 @@ export default function Portfolio() {
           <div className="border-t border-black/[0.06] dark:border-white/10" />
           <EducationSection />
           <div className="border-t border-black/[0.06] dark:border-white/10" />
-          <ContactSection />
+          {/* <ContactSection  /> */}
+          <ContactSection
+            formData={formData}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+          />
 
           <footer className="px-6 py-8 sm:px-10 lg:px-16">
             <div className="flex flex-col items-center justify-between gap-3 border-t border-black/[0.06] py-6 text-center text-xs font-medium uppercase tracking-widest text-slate-400 dark:border-white/10 dark:text-white/30 sm:flex-row sm:text-left">
@@ -703,6 +1051,22 @@ export default function Portfolio() {
           </footer>
         </main>
       </div>
+    
+    
+    <ToastContainer
+  position="top-right"
+  autoClose={3000}
+  hideProgressBar={false}
+  newestOnTop
+  closeOnClick
+  pauseOnHover
+  draggable
+  theme={dark ? "dark" : "light"}
+/>
+    
+    
     </div>
+    
+    
   );
 }
