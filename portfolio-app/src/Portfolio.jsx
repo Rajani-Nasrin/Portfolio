@@ -334,13 +334,13 @@ const ProjectSwiper = () => {
         }}
       >
         {projects.map((p) => (
-          <SwiperSlide key={p.name}>
+          <SwiperSlide key={p.name}   className="flex justify-center">
             <ProjectCard project={p} style={{ width: "auto" }} />
           </SwiperSlide>
         ))}
       </Swiper>
 
-      <div className="mt-6 flex items-center justify-between">
+      <div className="mt-6 flex flex-col-reverse gap-2 md:flex-row items-center md:justify-between">
         <p className="text-xs uppercase tracking-[0.2em] text-slate-400 dark:text-white/35">
           Swipe to explore — {projects.length} projects
         </p>
@@ -489,7 +489,7 @@ const ExperienceSection = () => (
             </p>
           </div>
           <span className="rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-500 dark:bg-white/5 dark:text-white/50">
-            Feb 2025 — Present
+            Feb 2025 — April 2026
           </span>
         </div>
 
@@ -992,7 +992,7 @@ if (
         {/* main content */}
         <main className="lg:pl-72">
           {/* hero */}
-          <section className="flex min-h-[70vh] flex-col justify-center px-6 py-10 md:py-16 sm:px-10 sm:py-24 lg:px-16">
+          <section className="flex min-h-[70vh] md:h-[530px] flex-col justify-center px-6 py-10 md:py-16 sm:px-10 sm:py-24 lg:px-16">
             <div className="hero-anim max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-1.5 text-xs font-semibold text-violet-600 dark:border-violet-400/20 dark:bg-violet-400/10 dark:text-violet-300">
                 Available for freelance &amp; full-time roles
