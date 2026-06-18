@@ -230,7 +230,7 @@ const Reveal = ({ children, delay = 0, className = "" }) => {
 /* ---------------------------------------------------------------- */
 
 const ProjectCard = ({ project }) => (
-  <div className="group relative flex min-h-[320px] w-[270px] flex-shrink-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.04] sm:w-[300px] sm:p-6">
+  <div className="group relative flex min-h-[320px] w-[280px] flex-shrink-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.04] sm:w-[300px] sm:p-6">
     {/* <div className="mb-5 flex items-center gap-1.5">
       <span className="h-2.5 w-2.5 rounded-full bg-rose-400/70" />
       <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
@@ -311,7 +311,6 @@ const ProjectSwiper = () => {
       <Swiper
         modules={[Navigation, Autoplay]}
         spaceBetween={24}
-       
         loop={true}
         autoplay={{
           delay: 3000,
@@ -334,7 +333,7 @@ const ProjectSwiper = () => {
         }}
       >
         {projects.map((p) => (
-          <SwiperSlide key={p.name}   className="flex justify-center">
+          <SwiperSlide key={p.name} className="flex justify-center">
             <ProjectCard project={p} style={{ width: "auto" }} />
           </SwiperSlide>
         ))}
@@ -346,12 +345,33 @@ const ProjectSwiper = () => {
         </p>
 
         <div className="flex gap-2">
-          <button className="custom-prev flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-violet-400 hover:text-violet-500 dark:border-white/15 dark:text-white/70">
-            <ChevronLeft size={18} />
+          {/* <button className="custom-prev group flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-all duration-300 hover:border-violet-400 dark:border-white/15">
+            <ChevronLeft
+              size={18}
+              className="transition-colors duration-300 group-hover:text-violet-500"
+            />
           </button>
 
-          <button className="custom-next flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-violet-400 hover:text-violet-500 dark:border-white/15 dark:text-white/70">
-            <ChevronRight size={18} />
+
+          <button className="custom-next group flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-all duration-300 hover:border-violet-400 dark:border-white/15">
+            <ChevronRight
+              size={18}
+              className="transition-colors duration-300 group-hover:text-violet-500"
+            />
+          </button> */}
+
+          <button className="custom-prev group flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-all duration-300 hover:border-violet-400 dark:border-white/15 dark:text-white/70">
+            <ChevronLeft
+              size={18}
+              className="transition-transform duration-300 group-hover:-translate-x-1  group-hover:text-violet-500"
+            />
+          </button>
+
+          <button className="custom-next group flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-all duration-300 hover:border-violet-400  dark:border-white/15 dark:text-white/70">
+            <ChevronRight
+              size={18}
+              className="transition-transform duration-300   group-hover:text-violet-500  group-hover:translate-x-1 "
+            />
           </button>
         </div>
       </div>
@@ -426,15 +446,27 @@ const SectionHeading = ({ eyebrow, title, description }) => (
 );
 
 const AboutSection = () => (
-  <section id="about" className="scroll-mt-24 px-6 py-10 md:py-16 sm:px-10 sm:py-24 lg:px-16">
+  <section
+    id="about"
+    className="scroll-mt-24 px-6 py-10 md:py-16 sm:px-10 sm:py-24 lg:px-16"
+  >
     <SectionHeading eyebrow="Hello" title="About me" />
     <Reveal delay={100}>
       <p className="max-w-2xl text-base leading-relaxed text-slate-600 dark:text-white/65 sm:text-lg">
-        I'm a results-driven UI &amp; UX Developer with strong expertise in HTML, CSS,
+        {/* I'm a results-driven UI &amp; UX Developer with strong expertise in HTML, CSS,
         JavaScript, Figma, Tailwind CSS, and React.js. I build responsive, mobile-first
         web applications that prioritize usability, accessibility, and performance —
         translating design concepts into scalable, production-ready interfaces backed
-        by clean, maintainable code.
+        by clean, maintainable code. */}
+        I'm a UI/UX Developer with hands-on experience in building responsive,
+        user-friendly, and performance-focused web applications. Skilled in
+        HTML, CSS, JavaScript, Tailwind CSS, and React.js, I enjoy transforming
+        ideas into modern digital experiences that are both visually appealing
+        and highly functional. My focus is on creating accessible, mobile-first
+        interfaces, writing clean and maintainable code, and delivering seamless
+        user experiences across devices. I am passionate about continuous
+        learning, problem-solving, and developing solutions that balance design,
+        usability, and performance.
       </p>
     </Reveal>
 
@@ -475,7 +507,7 @@ const WorkSection = () => (
 );
 
 const ExperienceSection = () => (
-  <section id="experience" className="scroll-mt-24 px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
+  <section id="experience" className="scroll-mt-24 px-6 py-10 sm:px-10 sm:py-24 lg:px-16">
     <SectionHeading eyebrow="Career" title="Experience" />
     <Reveal delay={100}>
       <div className="relative overflow-hidden rounded-2xl border border-black/[0.06] bg-white p-6 dark:border-white/10 dark:bg-white/[0.03] sm:p-10">
@@ -992,7 +1024,7 @@ if (
         {/* main content */}
         <main className="lg:pl-72">
           {/* hero */}
-          <section className="flex min-h-[70vh] md:h-[530px] flex-col justify-center px-6 py-10 md:py-16 sm:px-10 sm:py-24 lg:px-16">
+          <section className="flex min-h-[50vh]  flex-col justify-center px-6 py-10 md:py-16 sm:px-10 sm:py-24 lg:px-16">
             <div className="hero-anim max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-1.5 text-xs font-semibold text-violet-600 dark:border-violet-400/20 dark:bg-violet-400/10 dark:text-violet-300">
                 Available for freelance &amp; full-time roles
@@ -1007,10 +1039,11 @@ if (
                 &amp; care.
               </h1>
               <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-500 dark:text-white/60 sm:text-lg">
-                I turn Figma designs into responsive, accessible,
-                production-ready React interfaces — focused on clean components,
-                performance, and the small details that make a layout feel right
-                on any screen.
+                
+                I specialize in creating clean, accessible, and high-performance
+                web applications using HTML, CSS, JavaScript, Tailwind CSS, and
+                React.js. Passionate about transforming ideas into intuitive
+                digital solutions that work seamlessly across all devices.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
@@ -1056,22 +1089,17 @@ if (
           </footer>
         </main>
       </div>
-    
-    
-    <ToastContainer
-  position="top-right"
-  autoClose={3000}
-  hideProgressBar={false}
-  newestOnTop
-  closeOnClick
-  pauseOnHover
-  draggable
-  theme={dark ? "dark" : "light"}
-/>
-    
-    
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme={dark ? "dark" : "light"}
+      />
     </div>
-    
-    
   );
 }
