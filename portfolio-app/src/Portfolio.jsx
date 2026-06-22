@@ -17,6 +17,7 @@ import {
   Layers,
   GraduationCap,
   MessageSquare,
+   Download ,
   Send
 } from "lucide-react";
 import rajani from './assets/images/rajani.png'
@@ -802,6 +803,7 @@ const Sidebar = ({
         <p className="mt-1 text-sm font-medium text-violet-500 dark:text-violet-300">
           UI &amp; UX Developer
         </p>
+
         <p className="mt-3 flex items-center gap-1.5 text-xs text-slate-400 dark:text-white/40">
           <MapPin size={12} /> Kolkata, West Bengal
         </p>
@@ -834,18 +836,26 @@ const Sidebar = ({
       <div className="mt-auto flex flex-col gap-4 pt-10">
         <button
           onClick={() => setDark((d) => !d)}
-          className="flex items-center justify-center gap-2 rounded-xl border border-black/[0.06] py-2.5 text-sm font-medium text-slate-600 transition-colors hover:border-violet-300 dark:border-white/10 dark:text-white/70 dark:hover:border-violet-400/40"
+          className="flex items-center justify-center gap-2 rounded-xl border border-violet-500 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:border-violet-300 dark:border-white/10 dark:text-white/70 dark:hover:border-violet-400/40"
         >
           {dark ? <Sun size={15} /> : <Moon size={15} />}
           {dark ? "Light mode" : "Dark mode"}
         </button>
 
         <a
+          href="/Rajani-Nasrin-NewResume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-rose-400 py-2.5 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition-transform hover:scale-[1.02]"
+        >
+          Download CV
+        </a>
+        {/* <a
           href="mailto:rajaninasrin16@gmail.com"
           className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-rose-400 py-2.5 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition-transform hover:scale-[1.02]"
         >
           Say hello
-        </a>
+        </a> */}
 
         <div className="flex items-center justify-center gap-4 text-slate-400 dark:text-white/40">
           <a
@@ -1039,7 +1049,6 @@ if (
                 &amp; care.
               </h1>
               <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-500 dark:text-white/60 sm:text-lg">
-                
                 I specialize in creating clean, accessible, and high-performance
                 web applications using HTML, CSS, JavaScript, Tailwind CSS, and
                 React.js. Passionate about transforming ideas into intuitive
@@ -1089,6 +1098,17 @@ if (
           </footer>
         </main>
       </div>
+
+      <a
+        href="/Rajani-Nasrin-NewResume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group fixed right-[-120px] top-1/2 z-50 flex -translate-y-1/2 items-center gap-3 rounded-l-2xl bg-gradient-to-r from-violet-500 to-rose-400 px-3 md:px-4 py-3 text-white shadow-xl transition-all duration-300 hover:right-0"
+      >
+        <Download className=" h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
+
+        <span className="whitespace-nowrap font-semibold">Download CV</span>
+      </a>
 
       <ToastContainer
         position="top-right"
